@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "build1": "nuxt build --analyze",
     "build": "nuxt build",
     "start": "nuxt build && nuxt start",
     "precommit": "npm run lint",
@@ -14,14 +15,17 @@
   "dependencies": {
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
+    "body-parser": "^1.18.3",
     "clipboard": "^2.0.1",
-    "font-awesome": "^4.7.0",
-    "normalize.css": "^8.0.0",
     "cross-env": "^5.0.1",
     "element-ui": "^2.4.6",
     "express": "^4.15.3",
+    "express-session": "^1.15.6",
+    "font-awesome": "^4.7.0",
+    "normalize.css": "^8.0.0",
     "nuxt": "latest",
-    "source-map-support": "^0.4.15"
+    "source-map-support": "^0.4.15",
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
