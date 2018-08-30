@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
 Vue.use(Vuex)
-require('whatwg-fetch')
 const store = () => new Vuex.Store({
   state: {
     counter: 0,
@@ -65,7 +63,7 @@ const store = () => new Vuex.Store({
     },
     async login ({ commit }, { username, password }) {
       try {
-        const { data } = await axios.post('/api/login', { username, password })
+        const { data } = await this.$axios.post('/api/login', { username, password })
         commit('SET_USER', data)
       } catch (error) {
         if (error.response && error.response.status === 401) {
@@ -75,7 +73,7 @@ const store = () => new Vuex.Store({
       }
     },
     async logout ({ commit }) {
-      await axios.post('/api/logout')
+      await this.$axios.post('/api/logout')
       commit('SET_USER', null)
     }
   }

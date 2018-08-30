@@ -1,9 +1,15 @@
-import * as axios from 'axios'
+import {accessToken} from '~/static/configuration.json'
+export default function ({ $axios, redirect }) {
+// Adds header: `Authorization: Bearer 123` to all requests
+  $axios.setToken(accessToken, 'Bearer')
+  $axios.onRequest(config => {
+    console.log('Making request to ' + config.url)
+  })
 
-let options = {}
-// The server-side needs a full url to works
-if (process.server) {
-  options.baseURL = `http://${process.env.HOST || 'localhost'}:${process.env.PORT || 3000}`
+  $axios.onError(error => {
+    const code = parseInt(error.response && error.response.status)
+    if (code === 400) {
+      redirect('/400')
+    }
+  })
 }
-
-export default axios.create(options)
