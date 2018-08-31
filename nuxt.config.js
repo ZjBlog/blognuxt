@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser')
 const session = require('express-session')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
   /*
   ** Headers of the page
@@ -34,6 +35,19 @@ module.exports = {
   ** Add axios globally
   */
   build: {
+    plugins: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          compress: {
+            warnings: false,
+            drop_console: true,
+            pure_funcs: ['console.log']
+          }
+        },
+        sourceMap: false,
+        parallel: true
+      })
+    ],
     filenames: {
       app: '[name].[chunkhash].js'
     },
