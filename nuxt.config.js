@@ -12,13 +12,14 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://cdn.bootcss.com/normalize/8.0.0/normalize.min.css' }
     ]
   },
   /*
   ** Global CSS
   */
-  css: ['~/assets/css/main.css', 'normalize.css/normalize.css', 'font-awesome/css/font-awesome.css'],
+  css: ['~/assets/css/main.css'],
   /**
    * Build configuration
    */
@@ -46,7 +47,7 @@ module.exports = {
         }
       ]]]
     },
-    // vendor: ['axios'],
+    // vendor: ['vue'],
     /*
     ** Run ESLINT on save
     */
@@ -62,13 +63,13 @@ module.exports = {
       }
       // if (ctx.isClient) {
       //   const { vendor } = config.entry
-      //   const vendor2 = ['axios']
+      //   const vendor2 = ['vue']
       //   config.entry.vendor = vendor.filter(v => !vendor2.includes(v))
       //   config.entry.vendor2 = vendor2
       //   const plugin = config.plugins.find((plugin) => ~plugin.chunkNames.indexOf('vendor'))
       //   const old = plugin.minChunks
       //   plugin.minChunks = function (module, count) {
-      //     return old(module, count) && !(/(axios)|(vuetify)/).test(module.context)
+      //     return old(module, count) && !(/(vue)|(vuetify)/).test(module.context)
       //   }
       // }
     }

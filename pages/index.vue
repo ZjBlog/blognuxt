@@ -27,6 +27,11 @@ export default {
       formPassword: ''
     }
   },
+  head () {
+    return {
+      script: [{src: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js'}]
+    }
+  },
   methods: {
     async login () {
       try {

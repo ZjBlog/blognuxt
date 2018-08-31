@@ -22,6 +22,11 @@ export default {
       path: ''
     }
   },
+  head () {
+    return {
+      link: [{rel: 'stylesheet', href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'}]
+    }
+  },
   mounted () {
     aa()
     this.path = window.location.href
