@@ -63,7 +63,7 @@ const store = () => new Vuex.Store({
     },
     async login ({ commit }, { username, password }) {
       try {
-        const { data } = await this.$axios.post('/api/login', { username, password })
+        const { data } = await this.$axios.post('/user/login', { username, password })
         commit('SET_USER', data)
       } catch (error) {
         if (error.response && error.response.status === 401) {
@@ -73,7 +73,7 @@ const store = () => new Vuex.Store({
       }
     },
     async logout ({ commit }) {
-      await this.$axios.post('/api/logout')
+      await this.$axios.post('/user/logout')
       commit('SET_USER', null)
     }
   }

@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser')
 const session = require('express-session')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
   /*
   ** Headers of the page
@@ -24,7 +24,7 @@ module.exports = {
   /**
    * Build configuration
    */
-  plugins: [{src: '~/plugins/element-ui'}, '~/plugins/axios'],
+  plugins: [{src: '~/plugins/element-ui'}, '~/plugins/axios', '~/plugins/filter'],
   /**
    * loading configuration
    */
@@ -36,17 +36,17 @@ module.exports = {
   */
   build: {
     plugins: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          compress: {
-            warnings: false,
-            drop_console: true,
-            pure_funcs: ['console.log']
-          }
-        },
-        sourceMap: false,
-        parallel: true
-      })
+      // new UglifyJsPlugin({
+      //   uglifyOptions: {
+      //     compress: {
+      //       warnings: false,
+      //       drop_console: true,
+      //       pure_funcs: ['console.log']
+      //     }
+      //   },
+      //   sourceMap: false,
+      //   parallel: true
+      // })
     ],
     filenames: {
       app: '[name].[chunkhash].js'
@@ -92,11 +92,14 @@ module.exports = {
     '@nuxtjs/axios'
   ],
   axios: {
-    proxy: true
-    // proxyHeaders: false
+    proxy: true,
+    credentials: true,
+    proxyHeaders: true,
+    retry: { retries: 3 }
   },
   proxy: {
-    '/api': 'http://127.0.0.1:3000'
+    '/api': 'https://gitee.com',
+    '/user': 'http://127.0.0.1:3000'
   },
   serverMiddleware: [
     // body-parser middleware

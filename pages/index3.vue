@@ -1,22 +1,25 @@
 <template>
   <div class="index-box">
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide bg1" :style="{background: url1}">笔耕不掇，天道酬勤</div>
-        <div class="swiper-slide bg2" :style="{background: url2}">十年磨一剑，一朝试锋芒</div>
-        <div class="swiper-slide bg3" :style="{background: url3}">这世上最快的捷径就是脚踏实地</div>
+    <div class="banner">
+      <div class="swiper-container" style="clean:both">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide bg1" :style="{background: url1}">这世上最快的捷径就是脚踏实地</div>
+          <div class="swiper-slide bg2" :style="{background: url2}">笔耕不掇，天道酬勤</div>
+          <div class="swiper-slide bg3" :style="{background: url3}">十年磨一剑，一朝试锋芒</div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
       </div>
-      <div class="swiper-pagination"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
     </div>
+
     <div class="tt">
       <div style="text-align: center;width: 30%;cursor:pointer;" @click="dd">
         <div class="xwcms"></div>
       </div>
       <div style="width: 70%;">
          <no-ssr>
-          <aplayer :autoplay="false"
+          <aplayer autoplay
           :music="mp3[0]" :list="mp3"/>
          </no-ssr>
       </div>
@@ -58,7 +61,6 @@
       >
     </el-pagination>
     </div>
-    <span style="color:#efefef">99</span>
   </div>
 </template>
 
@@ -68,7 +70,6 @@ import projects from '~/static/projects.json'
 const Aplayer = () => import('vue-aplayer')
 Aplayer.disableVersionBadge = true
 export default {
-  layout: 'blog',
   name: 'index',
   data () {
     return {
@@ -100,14 +101,16 @@ export default {
     console.info(process.browser)
     if (process.browser) {
       let sw = new window.Swiper('.swiper-container', {
-        loop: true,
-        autoplay: true,
-        delay: 3000,
-        effect: 'flip',
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        }
+        // loop: true,
+        // direction: 'horizontal',
+        // speed: 500,
+        autoplay: true
+        // autoplayDisableOnInteraction: false,
+        // pagination: '.swiper-pagination',
+        // paginationClickable: true,
+        // paginationType: 'fraction',
+        // prevButton: '.swiper-button-prev',
+        // nextButton: '.swiper-button-next'
       })
       console.info(sw)
     }
@@ -210,29 +213,6 @@ export default {
 </style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
-  .swiper-container {
-    width: 100%;
-    height: 500px;
-  }
-  .swiper-slide {
-    font-size: 70px;
-    color: #fff;
-    line-height: 500px;
-    text-align: center;
-    text-shadow: 5px 5px 14px rgba(0, 0, 0, 0.6);
-  }
-  .bg1 {
-    height: 100%;
-    background-size: 100%;
-  }
-  .bg2 {
-    height: 100%;
-    background-size: 100%;
-  }
-  .bg3 {
-    height: 100%;
-    background-size: 100%;
-  }
  .main {
     height: 200px;
     display: flex;
@@ -278,6 +258,35 @@ export default {
 .index-box {
     background: #efefef;
     min-width: 1200px;
+    .banner {
+      width: 100%;
+      min-width: 1200px;
+      height: 500px;
+      position: relative;
+      top: 0;
+      .swiper-slide {
+        font-size: 70px;
+        color: #fff;
+        line-height: 500px;
+        text-align: center;
+        text-shadow: 5px 5px 14px rgba(0, 0, 0, 0.6);
+      }
+      .bg1 {
+        height: 100%;
+        background-size: 100%;
+      }
+      .bg2 {
+        height: 100%;
+        background-size: 100%;
+      }
+      .bg3 {
+        height: 100%;
+        background-size: 100%;
+      }
+      .swiper-container {
+        height: 500px;
+      }
+    }
   }
 .kuai-box {
       width: 100%;

@@ -17,7 +17,7 @@
 <script>
 export default {
   async asyncData ({app}) {
-    let { data } = await app.$axios.get('/api/users')
+    let { data } = await app.$axios.get('/user')
     return { users: data }
   },
   head () {

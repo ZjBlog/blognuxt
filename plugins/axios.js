@@ -1,7 +1,7 @@
 import {accessToken} from '~/static/configuration.json'
 export default function ({ $axios, redirect }) {
 // Adds header: `Authorization: Bearer 123` to all requests
-  $axios.setToken(accessToken, 'Bearer')
+  $axios.setToken(accessToken, 'token')
   $axios.onRequest(config => {
     console.log('Making request to ' + config.url)
   })

@@ -22,7 +22,8 @@
     "express": "^4.15.3",
     "express-session": "^1.15.6",
     "nuxt": "latest",
-    "source-map-support": "^0.4.15"
+    "source-map-support": "^0.4.15",
+    "vue-aplayer": "^1.6.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

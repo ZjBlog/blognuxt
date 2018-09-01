@@ -32,6 +32,6 @@ app.use(router)
 
 // Export the server middleware
 module.exports = {
-  path: '/api',
+  path: '/user',
   handler: app
 }
