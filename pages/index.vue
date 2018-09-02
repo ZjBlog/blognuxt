@@ -98,19 +98,17 @@ export default {
     this.init()
     console.info('======================')
     console.info(process.browser)
-    if (process.browser) {
-      let sw = new window.Swiper('.swiper-container', {
-        loop: true,
-        autoplay: true,
-        delay: 3000,
-        effect: 'flip',
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        }
-      })
-      console.info(sw)
-    }
+    let sw = new window.Swiper('.swiper-container', {
+      loop: true,
+      autoplay: true,
+      delay: 3000,
+      effect: 'flip',
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    })
+    console.info(sw)
   },
   methods: {
     dd () {

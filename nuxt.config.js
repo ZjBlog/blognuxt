@@ -75,6 +75,9 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+      config.externals = {
+        Swiper: 'Swiper'
+      }
       // if (ctx.isClient) {
       //   const { vendor } = config.entry
       //   const vendor2 = ['vue']
