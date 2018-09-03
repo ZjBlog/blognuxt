@@ -1,10 +1,9 @@
 <template>
     <div class="footer">
-        <div  id='web' :data-clipboard-text="path"></div>
         <div class="bo">
-        <a style="color:white"  href="javascript:void(0)" @click="sendmail" id='copy' data-clipboard-text="zhangjun521ly@gmail.com">
+        <a style="color:white;margin-right:20px;"  href="javascript:void(0)" @click="sendmail" id='copy' data-clipboard-text="zhangjun521ly@gmail.com">
         <i class="fa fa-envelope fa-2x" aria-hidden="true"></i></a>
-        <a href="https://github.com/zhangjunTracy"  target="_blank" style="color:white">
+        <a href="https://github.com/zhangjunTracy"  target="_blank" style="color:white;margin-right:20px;">
         <i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
         <a href="https://stackoverflow.com//users/6622851/mr-zhang"  target="_blank" style="color:white">
         <i class="fa fa-stack-overflow fa-2x" aria-hidden="true"></i></a>
@@ -14,7 +13,7 @@
 </template>
 <script>
 import {aa} from '~/assets/js/common.js'
-import Clipboard from 'clipboard'
+import Clipboard from 'Clipboard'
 export default {
   name: 'footerblog',
   data () {
@@ -24,7 +23,8 @@ export default {
   },
   head () {
     return {
-      link: [{rel: 'stylesheet', href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'}]
+      link: [{rel: 'stylesheet', href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'}],
+      script: [{src: 'https://cdn.bootcss.com/clipboard.js/2.0.1/clipboard.min.js'}]
     }
   },
   mounted () {

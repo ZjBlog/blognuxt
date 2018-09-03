@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser')
 const session = require('express-session')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
   /*
@@ -47,6 +48,17 @@ module.exports = {
       //   sourceMap: false,
       //   parallel: true
       // })
+      new CompressionWebpackPlugin({
+        asset: '[path].gz[query]',
+        algorithm: 'gzip',
+        test: new RegExp(
+          '\\.(' +
+          ['js', 'css'].join('|') +
+          ')$'
+        ),
+        threshold: 10240,
+        minRatio: 0.8
+      })
     ],
     filenames: {
       app: '[name].[chunkhash].js'
@@ -76,7 +88,8 @@ module.exports = {
         })
       }
       config.externals = {
-        Swiper: 'Swiper'
+        Swiper: 'Swiper',
+        Clipboard: 'Clipboard'
       }
       // if (ctx.isClient) {
       //   const { vendor } = config.entry
