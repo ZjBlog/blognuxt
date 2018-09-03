@@ -78,13 +78,7 @@ export default {
       url1: 'url(' + configration.bannerOne + ') no-repeat center center',
       url2: 'url(' + configration.bannerTwo + ') no-repeat center center',
       url3: 'url(' + configration.bannerThree + ') no-repeat center center',
-      menuList: [{
-        'text': '个人小项目',
-        'items': projects.items
-      }, {
-        'text': '个人随笔',
-        'items': []
-      }]
+      blogs: []
     }
   },
   head () {
@@ -93,11 +87,29 @@ export default {
       script: [{src: 'https://cdn.bootcss.com/Swiper/4.3.0/js/swiper.min.js'}]
     }
   },
+  async asyncData ({app}) {
+    let menuList = [{'text': '个人小项目', 'items': projects.items}, {'text': '个人随笔', 'items': []}]
+    let data = await app.$axios.$get('/api/v5/gists?page=1&per_page=1000')
+    let result = await app.$axios.$get('/api/v5/gists?page=1&per_page=6')
+    let blogs = []
+    let setArr = [1, 3, 5, 7, 9, 11]
+    for (let i = 0; i < result.length; i++) {
+      for (let key in result[i].files) {
+        let data = {}
+        data['title'] = key
+        data['description'] = result[i]['description']
+        data['id'] = result[i]['id']
+        data['created_at'] = result[i]['created_at']
+        data['img'] = 'http://7xnxtj.com1.z0.glb.clouddn.com/' + setArr[i] + '.jpg'
+        // data['img'] = 'static/images/' + setArr[i] + '.jpg'
+        blogs.push(data)
+        break
+      }
+    }
+    menuList[1].items = blogs
+    return {allTotal: data.length, menuList: menuList}
+  },
   mounted () {
-    this.init1()
-    this.init()
-    console.info('======================')
-    console.info(process.browser)
     let sw = new window.Swiper('.swiper-container', {
       loop: true,
       autoplay: true,
@@ -110,38 +122,15 @@ export default {
     })
     console.info(sw)
   },
+  created () {
+  },
+  beforeCreate () {
+  },
   methods: {
     dd () {
       window.open('https://github.com/zhangjunTracy/blog')
     },
-    init () {
-      this.$axios.get('/api/v5/gists?page=1&per_page=1000').then((res) => {
-        this.allTotal = res.data.length
-      })
-    },
-    init1 () {
-      this.$axios.get('/api/v5/gists?page=1&per_page=6').then((res) => {
-        let result = res.data
-        let blogs = []
-        let setArr = this.randomNum()
-        for (let i = 0; i < result.length; i++) {
-          for (let key in result[i].files) {
-            let data = {}
-            data['title'] = key
-            data['description'] = result[i]['description']
-            data['id'] = result[i]['id']
-            data['created_at'] = result[i]['created_at']
-            data['img'] = 'http://7xnxtj.com1.z0.glb.clouddn.com/' + setArr[i] + '.jpg'
-            // data['img'] = 'static/images/' + setArr[i] + '.jpg'
-            blogs.push(data)
-            break
-          }
-        }
-        this.menuList[1].items = blogs
-      })
-    },
     handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
       this.$axios.get(`/api/v5/gists?page=${val}&per_page=6`).then((res) => {
         let result = res.data
         let blogs = []
@@ -153,7 +142,7 @@ export default {
             data['description'] = result[i]['description']
             data['id'] = result[i]['id']
             data['created_at'] = result[i]['created_at']
-            data['img'] = 'static/images/' + setArr[i] + '.jpg'
+            data['img'] = 'http://7xnxtj.com1.z0.glb.clouddn.com/' + setArr[i] + '.jpg'
             blogs.push(data)
             break
           }
