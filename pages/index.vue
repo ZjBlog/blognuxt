@@ -1,5 +1,6 @@
 <template>
   <div class="index-box">
+    <no-ssr>
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide bg1" :style="{background: url1}">笔耕不掇，天道酬勤</div>
@@ -10,6 +11,7 @@
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
     </div>
+    </no-ssr>
     <div class="tt">
       <div style="text-align: center;width: 30%;cursor:pointer;" @click="dd">
         <div class="xwcms"></div>
@@ -68,7 +70,6 @@ import projects from '~/static/projects.json'
 const Aplayer = () => import('vue-aplayer')
 Aplayer.disableVersionBadge = true
 export default {
-  layout: 'blog',
   name: 'index',
   data () {
     return {
@@ -110,17 +111,19 @@ export default {
     return {allTotal: data.length, menuList: menuList}
   },
   mounted () {
-    let sw = new window.Swiper('.swiper-container', {
-      loop: true,
-      autoplay: true,
-      delay: 3000,
-      effect: 'flip',
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-      }
-    })
-    console.info(sw)
+    if (process.browser) {
+      let sw = new window.Swiper('.swiper-container', {
+        loop: true,
+        autoplay: true,
+        delay: 3000,
+        effect: 'flip',
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      })
+      console.info(sw)
+    }
   },
   created () {
   },
@@ -154,7 +157,7 @@ export default {
       if (index === 0) {
         window.open(id)
       } else {
-        this.$router.push(`/detail/${id}.html`)
+        this.$router.push(`/detail/${id}`)
       }
     },
     randomNum () {

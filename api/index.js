@@ -29,7 +29,6 @@ const users = require('./routes/users')
 // Import API Routes
 app.use(users)
 app.use(router)
-
 // Export the server middleware
 module.exports = {
   path: '/user',

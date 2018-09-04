@@ -4,7 +4,8 @@ Vue.use(Vuex)
 const store = () => new Vuex.Store({
   state: {
     counter: 0,
-    authUser: null
+    authUser: null,
+    index: 1
   },
   // 提交 mutation 的另一种方式是直接使用包含 type 属性的对象
   // store.commit({

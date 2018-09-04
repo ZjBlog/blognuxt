@@ -13,7 +13,6 @@
 </template>
 <script>
 import {aa} from '~/assets/js/common.js'
-import Clipboard from 'Clipboard'
 export default {
   name: 'footerblog',
   data () {
@@ -33,7 +32,7 @@ export default {
   },
   methods: {
     sendmail () {
-      let clipboard = new Clipboard('#copy')
+      let clipboard = new window.Clipboard('#copy')
       clipboard.on('success', e => {
         clipboard.destroy()
         this.$message({

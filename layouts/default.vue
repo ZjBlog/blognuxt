@@ -8,7 +8,7 @@
 
 <script>
 const MyFooter = () => import('~/components/Footer.vue')
-const MyHeader = () => import('~/components/Header.vue')
+const MyHeader = () => import('~/components/Head.vue')
 
 export default {
   components: {

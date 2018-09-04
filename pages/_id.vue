@@ -16,7 +16,7 @@
 export default {
   name: 'id',
   asyncData ({ params, error, app }) {
-    return app.$axios.get('/user' + params.id)
+    return app.$axios.get('/user/' + params.id)
       .then((res) => {
         return { user: res.data }
       })
