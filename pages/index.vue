@@ -1,17 +1,15 @@
 <template>
   <div class="index-box">
-    <no-ssr>
-    <div class="swiper-container">
+    <div v-swiper:mySwiper="swiperOption" class="swiper">
       <div class="swiper-wrapper">
-        <div class="swiper-slide bg1" :style="{background: url1}">笔耕不掇，天道酬勤</div>
-        <div class="swiper-slide bg2" :style="{background: url2}">十年磨一剑，一朝试锋芒</div>
-        <div class="swiper-slide bg3" :style="{background: url3}">这世上最快的捷径就是脚踏实地</div>
+          <div class="swiper-slide bg" :style="{background: url1}">笔耕不掇，天道酬勤</div>
+          <div class="swiper-slide bg" :style="{background: url2}">十年磨一剑，一朝试锋芒</div>
+          <div class="swiper-slide bg" :style="{background: url3}">这世上最快的捷径就是脚踏实地</div>
       </div>
-      <div class="swiper-pagination"></div>
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
+      <div class="swiper-pagination swiper-pagination-bullets"></div>
     </div>
-    </no-ssr>
     <div class="tt">
       <div style="text-align: center;width: 30%;cursor:pointer;" @click="dd">
         <div class="xwcms"></div>
@@ -79,13 +77,27 @@ export default {
       url1: 'url(' + configration.bannerOne + ') no-repeat center center',
       url2: 'url(' + configration.bannerTwo + ') no-repeat center center',
       url3: 'url(' + configration.bannerThree + ') no-repeat center center',
-      blogs: []
+      blogs: [],
+      swiperOption: {
+        loop: true,
+        autoplay: true,
+        delay: 3000,
+        centeredSlides: true,
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'bullets',
+          clickable: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      }
     }
   },
   head () {
     return {
-      link: [{rel: 'stylesheet', href: 'https://cdn.bootcss.com/Swiper/4.3.0/css/swiper.min.css'}],
-      script: [{src: 'https://cdn.bootcss.com/Swiper/4.3.0/js/swiper.min.js'}]
+      link: [{rel: 'stylesheet', href: 'https://cdn.bootcss.com/Swiper/4.3.0/css/swiper.min.css'}]
     }
   },
   async asyncData ({app}) {
@@ -111,19 +123,6 @@ export default {
     return {allTotal: data.length, menuList: menuList}
   },
   mounted () {
-    if (process.browser) {
-      let sw = new window.Swiper('.swiper-container', {
-        loop: true,
-        autoplay: true,
-        delay: 3000,
-        effect: 'flip',
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        }
-      })
-      console.info(sw)
-    }
   },
   created () {
   },
@@ -200,9 +199,13 @@ export default {
 </style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
-  .swiper-container {
-    width: 100%;
+  .swiper {
     height: 500px;
+    width: 100%;
+  }
+  .bg {
+    height: 100%;
+    background-size: 100%;
   }
   .swiper-slide {
     font-size: 70px;
@@ -210,18 +213,6 @@ export default {
     line-height: 500px;
     text-align: center;
     text-shadow: 5px 5px 14px rgba(0, 0, 0, 0.6);
-  }
-  .bg1 {
-    height: 100%;
-    background-size: 100%;
-  }
-  .bg2 {
-    height: 100%;
-    background-size: 100%;
-  }
-  .bg3 {
-    height: 100%;
-    background-size: 100%;
   }
  .main {
     height: 200px;

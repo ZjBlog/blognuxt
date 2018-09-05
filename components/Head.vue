@@ -20,16 +20,17 @@ export default {
   },
   methods: {
     handleSelect (key) {
-      if (key === '2') {
+      console.info(key)
+      if (key === 2) {
         if (window.location.href.indexOf('detail') !== -1) {
           console.info('保持当前页面状态')
         } else {
           this.$router.push('/detail')
         }
-      } else if (key === '1') {
+      } else if (key === 1) {
         this.$router.push('/')
-      } else if (key === '3') {
-        this.$router.push('/create.html')
+      } else if (key === 3) {
+        this.$router.push({path: '/index3'})
       } else {
         this.$router.push('/')
       }

@@ -25,7 +25,7 @@ module.exports = {
   /**
    * Build configuration
    */
-  plugins: [{src: '~/plugins/element-ui'}, '~/plugins/axios', '~/plugins/filter'],
+  plugins: [{src: '~/plugins/element-ui'}, '~/plugins/axios', '~/plugins/filter', { src: '~/plugins/swiper.js', ssr: false }],
   /**
    * loading configuration
    */
@@ -73,7 +73,7 @@ module.exports = {
         }
       ]]]
     },
-    // vendor: ['vue'],
+    // vendor: ['swiper'],
     /*
     ** Run ESLINT on save
     */
@@ -88,7 +88,6 @@ module.exports = {
         })
       }
       config.externals = {
-        Swiper: 'Swiper',
         Clipboard: 'Clipboard'
       }
       // if (ctx.isClient) {
