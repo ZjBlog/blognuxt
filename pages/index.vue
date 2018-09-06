@@ -100,6 +100,9 @@ export default {
       link: [{rel: 'stylesheet', href: 'https://cdn.bootcss.com/Swiper/4.3.0/css/swiper.min.css'}]
     }
   },
+  fetch ({store}) {
+    store.commit('indexChange', 1)
+  },
   async asyncData ({app}) {
     let menuList = [{'text': '个人小项目', 'items': projects.items}, {'text': '个人随笔', 'items': []}]
     let data = await app.$axios.$get('/api/v5/gists?page=1&per_page=1000')

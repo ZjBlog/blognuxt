@@ -7,11 +7,11 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'Blug',
+    title: '猿码集-程序猿代码聚集地',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { hid: 'description', name: 'description', content: '猿码集-程序猿代码聚集地' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -25,7 +25,7 @@ module.exports = {
   /**
    * Build configuration
    */
-  plugins: [{src: '~/plugins/element-ui'}, '~/plugins/axios', '~/plugins/filter', { src: '~/plugins/swiper.js', ssr: false }],
+  plugins: [{ src: '~/plugins/editor', ssr: false }, {src: '~/plugins/element-ui'}, '~/plugins/axios', '~/plugins/filter', { src: '~/plugins/swiper.js', ssr: false }],
   /**
    * loading configuration
    */

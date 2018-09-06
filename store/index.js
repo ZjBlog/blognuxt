@@ -15,6 +15,9 @@ const store = () => new Vuex.Store({
   // store.commit('increment', 10) 触发
   // 只能同步方法
   mutations: {
+    indexChange (state, index) {
+      state.index = index
+    },
     increment (state) {
       state.counter++
     },

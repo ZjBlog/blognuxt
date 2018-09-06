@@ -10,19 +10,20 @@
       <no-ssr>
       <aplayer  :autoplay='false'
         :music="mp3"/>
-     <!-- <vue-editor v-model="html"  :editorToolbar="customToolbar" disabled></vue-editor> -->
      </no-ssr>
-     <!-- <comments :pageData="pageData"  :allCount="allCount" @submit="submit" @moreData="moreData" :pageSize="pageSize" :nextPage="nextPage"></comments> -->
+     <no-ssr>
+      <vue-editor v-model="html"  :editorToolbar="customToolbar" disabled></vue-editor>
+     </no-ssr>
+     <comments :pageData="pageData"  :allCount="allCount" @submit="submit" @moreData="moreData" :pageSize="pageSize" :nextPage="nextPage"></comments>
     </div>
     <span style="color:#efefef">99</span>
   </div>
 </template>
 <script>
 import {baidutoken} from '~/static/configuration.json'
-// import { VueEditor } from 'vue2-editor'
 // import '~/assets/js/Bmob-1.6.2.min.js'
 // import {uuid} from '~/assets/js/uuid.js'
-// const Comments = () => import('vue-comments')
+const Comments = () => import('~/components/comments.vue')
 const Aplayer = () => import('vue-aplayer')
 // const hash = require('object-hash')
 // const ls = require('local-storage')
@@ -50,29 +51,29 @@ export default {
     }
   },
   components: {
-    // Comments,
+    Comments,
     Aplayer
   },
   computed: {
   },
   methods: {
-    // moreData (val) {
-    //   this.num = val
-    //   if (this.pageSize * this.num >= this.allCount1) {
-    //     this.nextPage = false
-    //   }
-    //   const query = window.Bmob.Query('Blog')
-    //   query.equalTo('blogId', '==', this.id)
-    //   query.order('-createdAt')
-    //   query.limit(this.pageSize)
-    //   query.skip(this.pageSize * (val - 1))
-    //   query.find().then(res => {
-    //     this.pageData = [...this.pageData, ...res]
-    //     console.info(res)
-    //   }).catch(err => {
-    //     console.info(err)
-    //   })
-    // },
+    moreData (val) {
+      this.num = val
+      if (this.pageSize * this.num >= this.allCount1) {
+        this.nextPage = false
+      }
+      const query = window.Bmob.Query('Blog')
+      query.equalTo('blogId', '==', this.id)
+      query.order('-createdAt')
+      query.limit(this.pageSize)
+      query.skip(this.pageSize * (val - 1))
+      query.find().then(res => {
+        this.pageData = [...this.pageData, ...res]
+        console.info(res)
+      }).catch(err => {
+        console.info(err)
+      })
+    },
     submit (val) {
       this.comment(val)
     },
@@ -224,7 +225,6 @@ export default {
     }
   },
   asyncData ({params, app, error}) {
-    console.info(params)
     return app.$axios.$get('/api/v5/gists/' + params.id).then(result => {
       let vm = {}
       for (let key in result.files) {
@@ -242,6 +242,9 @@ export default {
     }).catch(res => {
       error({ statusCode: 404, message: 'User not found' })
     })
+  },
+  fetch ({store}) {
+    store.commit('indexChange', 2)
   }
 }
 </script>
