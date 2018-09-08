@@ -11,6 +11,8 @@ module.exports = {
     titleTemplate: '猿码集-%s',
     meta: [
       { charset: 'utf-8' },
+      { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge,chrome=1' },
+      { name: 'author', content: 'zhangjun521ly@gmail.com' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '猿码集-程序猿代码聚集地' }
     ],

@@ -6,7 +6,7 @@
                 <li  class="layout-header-nav-item" :class="$store.state.index===2 ? 'curr1': ''"><a href="javascript:void(0)" :class="$store.state.index===2 ? 'curr': ''" @click="handleSelect(2)">文章详情</a></li>
                 <li  class="layout-header-nav-item" :class="$store.state.index===3 ? 'curr1': ''"><a href="javascript:void(0)" :class="$store.state.index===3 ? 'curr': ''" @click="handleSelect(3)">每天一记</a></li>
                 <li  class="layout-header-nav-item"><a href="javascript:void(0)" @click="handleSelect(4)">友情链接</a></li>
-                <li class="layout-header-nav-item-right"><a href="http://stbei.com">猿码集</a></li>
+                <li class="layout-header-nav-item-right"><a href="/login" v-if="!$store.state.authUser">猿码集</a> <a href="/login" v-else>欢迎您, {{$store.state.authUser}}</a></li>
             </ul>
         </div>
     </header>

@@ -20,10 +20,16 @@
         <el-button type="success" icon="el-icon-delete" @click="logout">退出登录</el-button>
         <el-button type="success" icon="el-icon-search" @click="go">随便看看</el-button>
        </div>
+       <canvas id="background"></canvas>
       </div>
 </template>
 <script>
 export default {
+  head () {
+    return {
+      script: [{src: '/js/background.min.js'}]
+    }
+  },
   data () {
     return {
       ruleForm: {
@@ -114,7 +120,18 @@ export default {
   }
 }
 </script>
+<style>
+.el-form-item__label{
+  color: whitesmoke;
+}
+</style>
 <style scoped>
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -100;
+}
 .demo-block {
   transition: all 0.2s ease 0s;
   display: inline-flex;
@@ -126,7 +143,6 @@ export default {
 .login {
   width: 100%;
   min-height: 650px;
-  background: #efefef;
 }
 .main {
   width: 40%;
