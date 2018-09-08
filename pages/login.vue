@@ -46,7 +46,7 @@ export default {
     go () {
       this.$router.push('/')
     },
-    ccreate () {
+    create () {
       this.$router.push('/')
     },
     submitForm (formName) {

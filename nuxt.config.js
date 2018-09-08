@@ -124,7 +124,7 @@ module.exports = {
     sessions({
       cookieName: 'myBlog',
       secret: 'zjargadeeblargbblog',
-      duration: 24 * 60 * 60 * 1000,
+      duration: 24 * 60 * 60 * 1000 * 7,
       activeDuration: 1000 * 60 * 5
     }),
     // API middleware
