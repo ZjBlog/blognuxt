@@ -20,16 +20,24 @@
   </div>
 </template>
 <script>
-import {baidutoken} from '~/static/configuration.json'
-// import '~/assets/js/Bmob-1.6.2.min.js'
-// import {uuid} from '~/assets/js/uuid.js'
+import {baidutoken, bmobkey, bmobid} from '~/static/configuration.json'
+import Bmob from 'hydrogen-js-sdk'
+import {uuid} from '~/assets/js/uuid.js'
 const Comments = () => import('~/components/comments.vue')
 const Aplayer = () => import('vue-aplayer')
-// const hash = require('object-hash')
-// const ls = require('local-storage')
+const hash = require('object-hash')
+const ls = require('local-storage')
 Aplayer.disableVersionBadge = true
 export default {
   name: 'detail',
+  validate ({ params }) {
+    console.info(params.id)
+    if (!params.id) {
+      return false
+    } else {
+      return true
+    }
+  },
   data () {
     return {
       customToolbar: [],
@@ -39,8 +47,6 @@ export default {
       title: 'No Bug Blog',
       html: 'No Bug Blog',
       desc: '',
-      activeIndex2: '1',
-      auth: '',
       mp5show: false,
       pageData: [],
       allCount: 0,
@@ -69,84 +75,60 @@ export default {
       query.skip(this.pageSize * (val - 1))
       query.find().then(res => {
         this.pageData = [...this.pageData, ...res]
-        console.info(res)
       }).catch(err => {
         console.info(err)
       })
     },
     submit (val) {
-      this.comment(val)
+      let md5 = ''
+      let name = ''
+      if (!ls.get('name')) {
+        name = this.getName()
+        ls.set('name', name)
+      } else {
+        name = ls.get('name')
+      }
+      if (ls.get('md5')) {
+        md5 = ls.get('md5')
+      } else {
+        md5 = hash.MD5(uuid())
+        ls.set('md5', md5)
+      }
+      let obj = {}
+      obj.name = name
+      obj.moment = val
+      let url = `https://www.gravatar.com/avatar/${md5}?s=100&d=monsterid`
+      obj.avatar = url
+      const query = Bmob.Query('Blog')
+      query.set('blogId', this.id)
+      query.set('moment', val)
+      query.set('avatar', url)
+      query.set('name', name)
+      query.save().then(res => {
+        obj.createdAt = res.createdAt
+        this.pageData.unshift(obj)
+        this.$message.success('提交成功')
+      }).catch(err => {
+        console.log(err)
+      })
     },
-    // initComment (id) {
-    //   const query = window.Bmob.Query('Blog')
-    //   query.equalTo('blogId', '==', id)
-    //   query.count().then(res => {
-    //     this.allCount1 = res
-    //     if (res > this.pageSize * this.num) {
-    //       this.nextPage = true
-    //     }
-    //   })
-    //   const query1 = window.Bmob.Query('Blog')
-    //   query1.equalTo('blogId', '==', id)
-    //   query1.order('-createdAt')
-    //   query1.limit(this.pageSize)
-    //   query1.find().then(res => {
-    //     this.pageData = res
-    //     console.info(res)
-    //   }).catch(err => {
-    //     console.info(err)
-    //   })
-    // },
-    // comment (val) {
-    //   let md5 = ''
-    //   let name = ''
-    //   if (!ls.get('name')) {
-    //     name = this.getName()
-    //     ls.set('name', name)
-    //   } else {
-    //     name = ls.get('name')
-    //   }
-    //   if (ls.get('md5')) {
-    //     md5 = ls.get('md5')
-    //   } else {
-    //     md5 = hash.MD5(uuid())
-    //     ls.set('md5', md5)
-    //   }
-    //   let obj = {}
-    //   obj.name = name
-    //   obj.moment = val
-    //   let url = `https://www.gravatar.com/avatar/${md5}?s=100&d=monsterid`
-    //   obj.avatar = url
-    //   const query = window.Bmob.Query('Blog')
-    //   query.set('blogId', this.id)
-    //   query.set('moment', val)
-    //   query.set('avatar', url)
-    //   query.set('name', name)
-    //   query.save().then(res => {
-    //     obj.createdAt = res.createdAt
-    //     this.pageData.unshift(obj)
-    //     this.$message.success('提交成功')
-    //   }).catch(err => {
-    //     console.log(err)
-    //   })
-    // },
-    init (id) {
-      this.$http.get(`/api/v5/gists/${id}`).then(res => {
-        let result = res.data
-        let m = {}
-        let vm = this
-        for (let key in result.files) {
-          vm.title = key
-          vm.desc = result['description']
-          vm.html = result.files[key].content
-          break
+    initComment (id) {
+      const query = Bmob.Query('Blog')
+      query.equalTo('blogId', '==', id)
+      query.count().then(res => {
+        this.allCount1 = res
+        if (res > this.pageSize * this.num) {
+          this.nextPage = true
         }
-        m.title = '语音预览'
-        m.pic = '../../static/images/logo.png'
-        m.artist = '--NBB'
-        // m.src = 'http://tsn.baidu.com/text2audio?tex=' + urlencode(urlencode(this.desc)) + '&tok=' + baidutoken + '&cuid=123456789' + '&ctp=1&lan=zh&spd=6'
-        this.mp3 = m
-        this.mp5show = true
+      })
+      const query1 = Bmob.Query('Blog')
+      query1.equalTo('blogId', '==', id)
+      query1.order('-createdAt')
+      query1.limit(this.pageSize)
+      query1.find().then(res => {
+        this.pageData = res
+      }).catch(err => {
+        console.info(err)
       })
     },
     edit () {
@@ -203,29 +185,16 @@ export default {
       return familyNames[i] + givename[i]
     }
   },
-  mounted () {
-    if (!this.$route.params.id) {
-      this.$message({
-        message: '找篇笔记看看吧.',
-        showClose: true,
-        type: 'success',
-        center: true,
-        onClose: function () {
-          window.location.href = '/'
-        },
-        duration: 2000
-      })
-    } else {
-      this.id = this.$route.params.id
-      console.info(this.id)
-    //   this.init(this.id)
-    //   this.auth = ls.get('isAuth')
-    //   window.Bmob.initialize(configration.bmobid, configration.bmobkey)
-    //   this.initComment(this.id)
-    }
+  created () {
+    Bmob.initialize(bmobid, bmobkey)
   },
-  asyncData ({params, app, error}) {
-    return app.$axios.$get('/api/v5/gists/' + params.id).then(result => {
+  mounted () {
+    this.id = this.$route.params.id
+    this.initComment(this.id)
+  },
+  async asyncData ({params, app, error}) {
+    try {
+      let result = await app.$axios.$get('/api/v5/gists/' + params.id)
       let vm = {}
       for (let key in result.files) {
         vm.title = key
@@ -236,12 +205,12 @@ export default {
       let m = {}
       m.title = '语音预览'
       m.pic = '/logo.png'
-      m.artist = '--NBB'
+      m.artist = '--猿码集'
       m.src = 'http://tsn.baidu.com/text2audio?tex=' + encodeURI(encodeURI(vm.desc)) + '&tok=' + baidutoken + '&cuid=123456789' + '&ctp=1&lan=zh&spd=6'
       return {title: vm.title, html: vm.html, desc: vm.desc, mp3: m}
-    }).catch(res => {
-      error({ statusCode: 404, message: 'User not found' })
-    })
+    } catch (err) {
+      error({ statusCode: err.response.status, message: err.response.data.message })
+    }
   },
   fetch ({store}) {
     store.commit('indexChange', 2)

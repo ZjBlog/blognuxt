@@ -129,5 +129,15 @@ module.exports = {
     }),
     // API middleware
     '~/api/index.js'
-  ]
+  ],
+  router: {
+    extendRoutes (routers) {
+      // 路由有关的内容
+      // routers.forEach(e => {
+      //   if (e.name === 'id') {
+      //     e.path = e.path + '.html'
+      //   }
+      // })
+    }
+  }
 }
