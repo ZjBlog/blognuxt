@@ -1,10 +1,10 @@
-/* .page-enter-active, .page-leave-active {
+.page-enter-active, .page-leave-active {
   transition: opacity .5s;
 }
 .page-enter, .page-leave-active {
-  opacity: 0;
-} */
-.page-enter-active {
+  opacity: 0.8;
+}
+/* .page-enter-active {
   animation: bounce-in .5s;
 }
 .page-leave-active {
@@ -17,7 +17,7 @@
   50% {
     transform: scale(1.5);
   }
-}
+} */
 /* .page-enter-active {
 	-webkit-animation: moveToLeft .6s ease both;
 	-moz-animation: moveToLeft .6s ease both;

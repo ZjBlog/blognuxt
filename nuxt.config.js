@@ -1,13 +1,14 @@
 const bodyParser = require('body-parser')
-const session = require('express-session')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const sessions = require('client-sessions')
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
   /*
   ** Headers of the page
   */
   head: {
-    title: '猿码集-程序猿代码聚集地',
+    title: '程序猿的升级之路',
+    titleTemplate: '猿码集-%s',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -120,12 +121,11 @@ module.exports = {
     // body-parser middleware
     bodyParser.json(),
     // session middleware
-    session({
-      secret: 'super-secret-key',
-      resave: false,
-      name: 'blog',
-      saveUninitialized: false,
-      cookie: { maxAge: 60000 }
+    sessions({
+      cookieName: 'myBlog',
+      secret: 'zjargadeeblargbblog',
+      duration: 24 * 60 * 60 * 1000,
+      activeDuration: 1000 * 60 * 5
     }),
     // API middleware
     '~/api/index.js'

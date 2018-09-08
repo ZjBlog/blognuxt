@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+const hash = require('object-hash')
 Vue.use(Vuex)
 const store = () => new Vuex.Store({
   state: {
@@ -61,18 +62,16 @@ const store = () => new Vuex.Store({
     },
     // nuxtServerInit is called by Nuxt.js before server-rendering every page
     nuxtServerInit ({ commit }, { req }) {
-      if (req.session && req.session.authUser) {
-        commit('SET_USER', req.session.authUser)
+      if (req.myBlog && req.myBlog.authUser) {
+        commit('SET_USER', req.myBlog.authUser)
       }
     },
     async login ({ commit }, { username, password }) {
       try {
+        password = hash.MD5(password)
         const { data } = await this.$axios.post('/user/login', { username, password })
-        commit('SET_USER', data)
+        commit('SET_USER', data.username)
       } catch (error) {
-        if (error.response && error.response.status === 401) {
-          throw new Error('Bad credentials')
-        }
         throw error
       }
     },
