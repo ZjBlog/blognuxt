@@ -12,7 +12,6 @@ import {
   Button,
   Form,
   FormItem,
-  Loading,
   MessageBox
 } from 'element-ui'
 
@@ -27,7 +26,6 @@ export default () => {
   Vue.use(Button)
   Vue.use(Form)
   Vue.use(FormItem)
-  Vue.use(Loading)
   Vue.prototype.$message = Message
   Vue.prototype.$confirm = MessageBox.confirm
 }

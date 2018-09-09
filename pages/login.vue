@@ -1,5 +1,5 @@
 <template>
-     <div class="demo-block login">
+     <div class="demo-block login"  style="background: aquamarine;">
        <div class="main" v-if="!$store.state.authUser">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" >
           <el-form-item label="用户名" prop="name">
@@ -25,11 +25,6 @@
 </template>
 <script>
 export default {
-  head () {
-    return {
-      script: [{src: '/js/background.min.js'}]
-    }
-  },
   data () {
     return {
       ruleForm: {
@@ -53,7 +48,7 @@ export default {
       this.$router.push('/')
     },
     create () {
-      this.$router.push('/')
+      this.$router.push('/create')
     },
     submitForm (formName) {
       if (!this.ruleForm.name) {
@@ -120,11 +115,6 @@ export default {
   }
 }
 </script>
-<style>
-.el-form-item__label{
-  color: whitesmoke;
-}
-</style>
 <style scoped>
 #background {
   position: fixed;

@@ -1,5 +1,5 @@
 <template>
-  <div class="hello"  style="background: #efefef;" id="detail">
+  <div  style="background: #efefef;" id="detail">
     <span style="color:#efefef">99</span>
     <div class="btn-flex"  v-if="$store.state.authUser" style="max-width:1200px;margin:0 auto;">
       <el-button type="info" round @click="edit">编辑</el-button>
@@ -23,11 +23,10 @@
 import {baidutoken, bmobkey, bmobid} from '~/static/configuration.json'
 import Bmob from 'hydrogen-js-sdk'
 import {uuid} from '~/assets/js/uuid.js'
-const Comments = () => import('~/components/comments.vue')
-const Aplayer = () => import('vue-aplayer')
+const Comments = import('~/components/comments.vue')
+const Aplayer = import('vue-aplayer')
 const hash = require('object-hash')
 const ls = require('local-storage')
-Aplayer.disableVersionBadge = true
 export default {
   name: 'detail',
   validate ({ params }) {
@@ -67,7 +66,7 @@ export default {
       if (this.pageSize * this.num >= this.allCount1) {
         this.nextPage = false
       }
-      const query = window.Bmob.Query('Blog')
+      const query = Bmob.Query('Blog')
       query.equalTo('blogId', '==', this.id)
       query.order('-createdAt')
       query.limit(this.pageSize)
@@ -131,7 +130,7 @@ export default {
       })
     },
     edit () {
-      this.$router.push(`/create/${this.id}.html`)
+      this.$router.push(`/create/${this.id}`)
     },
     del () {
       this.$confirm('由于码云Api问题,暂不支持删除, 是否去官网删除?', '提示', {
@@ -193,7 +192,7 @@ export default {
   },
   async asyncData ({params, app, error}) {
     try {
-      let result = await app.$axios.$get('/api/v5/gists/' + params.id)
+      const result = await app.$axios.$get('/api/v5/gists/' + params.id)
       let vm = {}
       for (let key in result.files) {
         vm.title = key

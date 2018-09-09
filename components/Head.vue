@@ -24,13 +24,14 @@ export default {
         if (window.location.href.indexOf('detail') !== -1) {
           console.info('保持当前页面状态')
         } else {
+          let vm = this
           this.$message({
             message: '先找篇笔记看看吧.',
             showClose: true,
             type: 'success',
             center: true,
             onClose: function () {
-              this.$router.push('/')
+              vm.$router.push('/')
             },
             duration: 2000
           })
@@ -38,7 +39,21 @@ export default {
       } else if (key === 1) {
         this.$router.push('/')
       } else if (key === 3) {
-        this.$router.push({path: '/index3'})
+        if (!this.$store.state.authUser) {
+          let vm = this
+          this.$message({
+            message: '你还没有登录.',
+            showClose: true,
+            type: 'success',
+            center: true,
+            onClose: function () {
+              vm.$router.push('/login')
+            },
+            duration: 2000
+          })
+        } else {
+          this.$router.push({path: '/create'})
+        }
       } else {
         this.$router.push('/')
       }

@@ -69,12 +69,13 @@ module.exports = {
     extractCSS: true,
     analyze: true,
     babel: {
+      presets: ['es2015', 'stage-2'],
       plugins: [['component', [
         {
           'libraryName': 'element-ui',
           'styleLibraryName': 'theme-chalk'
         }
-      ]]]
+      ]], 'transform-async-to-generator', 'transform-runtime']
     },
     // vendor: ['swiper'],
     /*
@@ -116,8 +117,8 @@ module.exports = {
     retry: { retries: 3 }
   },
   proxy: {
-    '/api': 'https://gitee.com',
-    '/user': 'http://127.0.0.1:3000'
+    '/api/': 'https://gitee.com',
+    '/user/': 'http://127.0.0.1:3000'
   },
   serverMiddleware: [
     // body-parser middleware
