@@ -31,7 +31,6 @@ Aplayer.disableVersionBadge = true
 export default {
   name: 'detail',
   validate ({ params }) {
-    console.info(params.id)
     if (!params.id) {
       return false
     } else {

@@ -6,7 +6,8 @@ const store = () => new Vuex.Store({
   state: {
     counter: 0,
     authUser: null,
-    index: 1
+    index: 1,
+    detail: false
   },
   // 提交 mutation 的另一种方式是直接使用包含 type 属性的对象
   // store.commit({
@@ -16,6 +17,9 @@ const store = () => new Vuex.Store({
   // store.commit('increment', 10) 触发
   // 只能同步方法
   mutations: {
+    detail (state, flag) {
+      state.detail = flag
+    },
     indexChange (state, index) {
       state.index = index
     },

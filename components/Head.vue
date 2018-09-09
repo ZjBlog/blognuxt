@@ -20,12 +20,20 @@ export default {
   },
   methods: {
     handleSelect (key) {
-      console.info(key)
       if (key === 2) {
         if (window.location.href.indexOf('detail') !== -1) {
           console.info('保持当前页面状态')
         } else {
-          this.$router.push('/detail')
+          this.$message({
+            message: '先找篇笔记看看吧.',
+            showClose: true,
+            type: 'success',
+            center: true,
+            onClose: function () {
+              this.$router.push('/')
+            },
+            duration: 2000
+          })
         }
       } else if (key === 1) {
         this.$router.push('/')
