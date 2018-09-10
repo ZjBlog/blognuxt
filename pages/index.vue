@@ -25,7 +25,7 @@
       <div class="kuai-main">
         <h3>{{ listItem.text }}</h3>
         <div class="list">
-          <div class="item"  v-for="(item, index2) in listItem.items" :class="{nom: (index2 + 1) % 3 === 0}" :key="index2" @click="detail(item.id,index1)">
+          <div class="item"  v-for="(item, index2) in listItem.items" :class="{nom: (index2 + 1) % 3 === 0}" :key="index2" :style="{cursor:index1===0?'pointer':''}">
             <div class="img-box">
               <img :src="item.img" :class="{img: index1 === 0}"/>
               <div class="imgma-box" if="item.imgma">
@@ -37,9 +37,9 @@
                 <h6>{{ item.title }}</h6>
                 <span class="time" v-if="index1 == 0">{{ item.created_at }}</span>
                 <span class="time" v-if="index1 == 1">{{ item.created_at | time }}</span>
-                <p :class="{height: index1 === 0}" :title="item.description">{{ item.description }}</p>
-                <div class="button" v-if="index1 != 0" style="text-align:center;">
-                  <div class="btn">查看详情</div>
+                <p :class="{height: index1 === 0}" :title="item.description">{{item.description | desc}}</p>
+                <div class="button" v-if="index1 != 0" style="text-align:center;cursor:pointer;">
+                  <nuxt-link :to="'/detail/'+ item.id" tag="div" class="btn">查看详情</nuxt-link>
                 </div>
               </div>
             </div>
@@ -294,7 +294,6 @@ export default {
             margin-top: 20px;
             margin-right: 5%;
             display: inline-block;
-            cursor: pointer;
             position: relative;
             &.nom {
               margin-right: 0;

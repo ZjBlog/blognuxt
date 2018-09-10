@@ -7,8 +7,12 @@ export const time = function (value) {
 export const avatar = function (value) {
   return {'background': 'url(' + value + ') no-repeat left top'}
 }
+export const desc = function (val) {
+  let res = val.length > 48 ? val.substring(0, 47) + '...' : val
+  return res
+}
 const filters = {
-  time, avatar
+  time, avatar, desc
 }
 
 for (const key in filters) {

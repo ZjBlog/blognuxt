@@ -2,11 +2,20 @@
     <header class="layout-header">
         <div class="layout-header-nav-wrapper">
             <ul class="layout-header-nav">
-                <li  class="layout-header-nav-item" :class="$store.state.index===1 ? 'curr1': ''"><a href="javascript:void(0)" :class="$store.state.index===1 ? 'curr': ''" @click="handleSelect(1)">首&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
-                <li  class="layout-header-nav-item" :class="$store.state.index===2 ? 'curr1': ''"><a href="javascript:void(0)" :class="$store.state.index===2 ? 'curr': ''" @click="handleSelect(2)">文章详情</a></li>
-                <li  class="layout-header-nav-item" :class="$store.state.index===3 ? 'curr1': ''"><a href="javascript:void(0)" :class="$store.state.index===3 ? 'curr': ''" @click="handleSelect(3)">每天一记</a></li>
-                <li  class="layout-header-nav-item"><a href="javascript:void(0)" @click="handleSelect(4)">友情链接</a></li>
-                <li class="layout-header-nav-item-right"><a href="/login" v-if="!$store.state.authUser">猿码集</a> <a href="/login" v-else>欢迎您, {{$store.state.authUser}}</a></li>
+                <li  class="layout-header-nav-item" :class="$store.state.index===1 ? 'curr1': ''">
+                    <nuxt-link to="/" tag="a" :class="$store.state.index===1 ? 'curr': ''">首&nbsp;&nbsp;页</nuxt-link>
+                </li>
+                <li  class="layout-header-nav-item" :class="$store.state.index===2 ? 'curr1': ''">
+                    <nuxt-link to="/" tag="a" :class="$store.state.index===2 ? 'curr': ''">文章详情</nuxt-link>
+                </li>
+                <li  class="layout-header-nav-item" :class="$store.state.index===3 ? 'curr1': ''">
+                     <nuxt-link to="/create" tag="a" :class="$store.state.index===3 ? 'curr': ''">每天一记</nuxt-link>
+                </li>
+                <li  class="layout-header-nav-item"><a href="www.baidu.com">友情链接</a></li>
+                <li class="layout-header-nav-item-right">
+                    <nuxt-link to="/login" tag="a" v-if="!$store.state.authUser">猿码集</nuxt-link>
+                    <nuxt-link to="/login" tag="a" v-else>欢迎您, {{$store.state.authUser}}</nuxt-link>
+                </li>
             </ul>
         </div>
     </header>

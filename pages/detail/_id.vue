@@ -23,8 +23,8 @@
 import {baidutoken, bmobkey, bmobid} from '~/static/configuration.json'
 import Bmob from 'hydrogen-js-sdk'
 import {uuid} from '~/assets/js/uuid.js'
-const Comments = import('~/components/comments.vue')
-const Aplayer = import('vue-aplayer')
+const Comments = () => import('~/components/comments.vue')
+const Aplayer = () => import('vue-aplayer')
 const hash = require('object-hash')
 const ls = require('local-storage')
 export default {

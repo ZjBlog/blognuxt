@@ -2,7 +2,7 @@
   <div>
     <my-header></my-header>
     <nuxt/>
-    <my-footer/>
+    <my-footer></my-footer>
   </div>
 </template>
 
@@ -17,6 +17,5 @@ export default {
   }
 }
 </script>
-
 <style>
 </style>

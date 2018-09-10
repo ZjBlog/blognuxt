@@ -75,7 +75,8 @@ module.exports = {
           'libraryName': 'element-ui',
           'styleLibraryName': 'theme-chalk'
         }
-      ]], 'transform-async-to-generator', 'transform-runtime']
+      ]], 'transform-async-to-generator', 'transform-runtime'],
+      comments: true
     },
     // vendor: ['swiper'],
     /*
